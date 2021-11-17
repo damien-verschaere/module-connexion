@@ -1,0 +1,12 @@
+header{
+    height: 150px;
+    background-color: aquamarine;
+}
+main{
+    height: 600px;
+    background-color: whitesmoke;
+}
+footer{
+    height: 300px;
+    background-color: turquoise;
+}

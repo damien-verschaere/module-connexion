@@ -1,0 +1,29 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+.head{
+    height: 150px;
+    background-color: blueviolet;
+    
+}
+.head ul li{
+    list-style: none;
+}
+li a{
+    text-decoration: none;
+}
+h1{
+    text-align: center;
+}
+main{
+    height: 600px;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+}
+.foot{
+    height: 300px;
+    background-color: aqua;
+}
+
