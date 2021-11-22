@@ -1,7 +1,8 @@
 <?php
 session_start();
-echo "bonjour". $_SESSION['login'];
-
+if (isset($_SESSION['login'])) {
+    $login=$_SESSION['login'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -15,23 +16,44 @@ echo "bonjour". $_SESSION['login'];
 </head>
 <body>
     <header class="head">
-        <ul>
-            <li><a href="#">accueil</a></li>
+        <div class="drop">
+            <!-- menu drop vers les liens des pages  -->
+            <button class="dropbutton">MENU</button>
+            <div class="container-button">
+            <li><a href="index.php">accueil</a></li>
             <li><a href="php/connexion.php">connexion</a></li>
             <li><a href="php/inscription.php">inscription</a></li>
-            <li><a href="#">profil</a></li>
-            <li><a href="#">admin</a></li>
-        </ul>
+            <li><a href="php/profil.php">profil</a></li>
+            <?php
+            if (isset($login)) {
+                if ($login=="admin") {
+                    echo  "<li><a href=php/admin.php>admin</a></li>";
+                } 
+            }
+            ?>   
+            </div>
+        </div>
     </header>
         <h1>EPIC RAP BATTLE OF HISTORY</h1>
-        <main>
-        <iframe class="video" width="853" height="480" src="https://www.youtube.com/embed/njos57IJf-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="bonjour">Bonjour 
+            <?php if (isset($login)) {
+            echo $login;
+            } ?> 
+            </p>
+        <main class="accueil">
+            <iframe class="video" width="853" height="480" src="https://www.youtube.com/embed/njos57IJf-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </main>
+        <p class="bonjour">Juste pour le plaisir d'un rap contenders EPIC </p>
+        <article>
+            <iframe width="900" height="506" src="https://www.youtube.com/embed/_wYtG7aQTHA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </article>
 <footer class="foot">
-    <ul>
-        <li></li>
-        <li></li>
-        <li></li>
+    <ul class="liste">
+        <li><a href="https://open.spotify.com/artist/0Rq2hV3S3O4JMWbL2B510w">Spotify</a></li>
+        <li><a href="https://www.erbofhistory.com/">Site officiel</a></li>
+        <li><a href="https://twitter.com/erbofhistory">Twitter</a></li>
+        <li><a href="https://www.facebook.com/erb">Facebook</a></li>
+        <li><a href="https://github.com/damien-verschaere?tab=repositories">Github</a></li>
     </ul>
 </footer>    
 </body>

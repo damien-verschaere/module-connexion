@@ -1,0 +1,24 @@
+@import url(../css/accueil.css);
+*{
+    margin: 0;
+    padding: 0;
+}
+table,tr{
+    border: solid 3px black;
+}
+td,th{
+    border: 1px solid black;
+    margin-top: 2%;
+    margin-right: 2%;
+}
+
+main{
+    display:flex;
+    justify-content: center;
+    margin-top: 15%;
+    margin-bottom: 15%;
+}
+footer{
+    height: 200px;
+    background-color: black;
+}

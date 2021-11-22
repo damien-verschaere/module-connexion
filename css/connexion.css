@@ -1,14 +1,39 @@
-header{
-    height: 150px;
-    background-color: violet;
+@import url(../css/accueil.css);
+*{
+    margin: 0;
+    padding: 0;
 }
 
 main{
     height: 600px;
-    background-color: tomato;
+   
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.connexion{
+    display: flex;
+    justify-content: space-evenly;
+	height:250px;
+    background-color: rgba(245, 0, 0, 0.6);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 10%;
+    margin-bottom: 20%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 1px rgba(0,151,215,0.2);
+    border-radius: 30px;  
+}
+form input {
+    margin-top: 10%;
+    border-radius: 5px;
 }
 
 footer{
     height: 300px;
-    background-color: yellowgreen;
+    background-color: black;
 }

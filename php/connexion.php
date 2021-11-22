@@ -8,16 +8,28 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
+<header>
     <ul>
+            <div class="drop">
+            <!-- menu drop vers les liens des pages  -->
+            <button class="dropbutton">MENU</button>
+            <div class="container-button">
             <li><a href="../index.php">accueil</a></li>
             <li><a href="connexion.php">connexion</a></li>
-            <li><a href="php/inscription.php">inscription</a></li>
-            <li><a href="#">profil</a></li>
-            <li><a href="#">admin</a></li>
-        </ul>
+            <li><a href="inscription.php">inscription</a></li>
+            <li><a href="profil.php">profil</a></li>
+            <?php
+            if (isset($login)) {
+                if ($login=="admin") {
+                    echo  "<li><a href=php/admin.php>admin</a></li>";
+                } 
+            }
+            ?>   
+            </div>
+        </div>
     </header>
-    <main>
+    <h1>CONNEXION</h1>
+    <main class=connexion >
         <form action="backconnexion.php" method="POST">
             <input type="text" name="login" placeholder="login">
             <input type="password" name="password" placeholder="mot de passe">
@@ -25,7 +37,13 @@
         </form>
     </main>
     <footer>
-
+    <ul class="liste">
+        <li><a href="https://open.spotify.com/artist/0Rq2hV3S3O4JMWbL2B510w">Spotify</a></li>
+        <li><a href="https://www.erbofhistory.com/">Site officiel</a></li>
+        <li><a href="https://twitter.com/erbofhistory">Twitter</a></li>
+        <li><a href="https://www.facebook.com/erb">Facebook</a></li>
+        <li><a href="https://github.com/damien-verschaere?tab=repositories">Github</a></li>
+        </ul>
     </footer>
     
 </body>
