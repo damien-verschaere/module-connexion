@@ -37,9 +37,9 @@ $profil=mysqli_fetch_all($requete,MYSQLI_ASSOC);
                     if ($login=="admin") {
                         echo  "<li><a href=admin.php>"."admin"."</a></li>";
                     }
-                    echo "<form action=index.php method=POST name=decon ><input type=submit value=deconnexion ></form>";
+                    echo "<li><a href=deconnexion.php>deconnexion</a></li>";
                 }
-            ?>   
+            ?> 
             </div>
         </div>
     </header>

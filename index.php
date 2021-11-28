@@ -3,13 +3,6 @@ session_start();
 if (isset($_SESSION['login'])) {
     $login=$_SESSION['login'];
 }
-
-if (isset($_POST['deco'])) {
-    $_SESSION=[];
-session_destroy();
-return var_dump($_SESSION['login']);
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,12 +31,9 @@ return var_dump($_SESSION['login']);
                     if ($login=="admin") {
                         echo  "<li><a href=php/admin.php>"."admin"."</a></li>";
                     }
-                    echo "<li><form action=index.php ><input type=submit name=deco value=deconnexion></form></li>";
+                    echo "<li><a href=php/deconnexion.php>deconnexion</a></li>";
                 }
-
             ?> 
-?>
-            </form>  
             </div>
         </div>
     </header>

@@ -15,11 +15,6 @@ if (password_verify($password,$resultat['password'])) {
 else{
     echo "login ou mdp incorect";
 }
-function deco(){
-    $_SESSION=[];
-    session_destroy();
-    header('location:' .'../index.php');
-    
-}
+
 
 ?>
