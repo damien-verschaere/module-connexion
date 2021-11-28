@@ -8,22 +8,25 @@
     <title>Document</title>
 </head>
 <body>
-<header>
-    <ul>
-            <div class="drop">
+<header class="head">
+        <div class="drop">
             <!-- menu drop vers les liens des pages  -->
             <button class="dropbutton">MENU</button>
             <div class="container-button">
             <li><a href="../index.php">accueil</a></li>
-            <li><a href="connexion.php">connexion</a></li>
-            <li><a href="inscription.php">inscription</a></li>
-            <li><a href="profil.php">profil</a></li>
             <?php
-            if (isset($login)) {
-                if ($login=="admin") {
-                    echo  "<li><a href=php/admin.php>admin</a></li>";
-                } 
+            if (empty($login)) {
+           echo "<li><a href=php/connexion.php>"."connexion"."</a></li>";
+           echo "<li><a href=php/inscription.php>"."inscription"."</a></li>";
             }
+            elseif(!empty($login)){
+                    echo "<li><a href=php/profil.php>profil</a></li>";
+                    
+                    if ($login=="admin") {
+                        echo  "<li><a href=php/admin.php>"."admin"."</a></li>";
+                    }
+                    echo "<form action=index.php method=POST name=decon ><input type=submit value=deconnexion ></form>";
+                }
             ?>   
             </div>
         </div>

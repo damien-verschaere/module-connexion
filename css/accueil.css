@@ -7,6 +7,9 @@ html,body{
     
     
 }
+button{
+    background-color: black;
+}
 .dropbutton{
     background-color: black;
     opacity: 0.9;

@@ -1,3 +1,6 @@
+<?php 
+session_start()
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,17 +11,26 @@
     <title>INSCRIPTION</title>
 </head>
 <body>
-    <header>
-    <ul>
-            <div class="drop">
+<header class="head">
+        <div class="drop">
             <!-- menu drop vers les liens des pages  -->
             <button class="dropbutton">MENU</button>
             <div class="container-button">
-            <li><a href="../index.php">accueil</a></li>
-            <li><a href="connexion.php">connexion</a></li>
-            <li><a href="inscription.php">inscription</a></li>
-            <li><a href="profil.php">profil</a></li>
-      
+            <li><a href="index.php">accueil</a></li>
+            <?php
+            if (empty($login)) {
+           echo "<li><a href=php/connexion.php>"."connexion"."</a></li>";
+           echo "<li><a href=php/inscription.php>"."inscription"."</a></li>";
+            }
+            elseif(!empty($login)){
+                    echo "<li><a href=php/profil.php>profil</a></li>";
+                    
+                    if ($login=="admin") {
+                        echo  "<li><a href=php/admin.php>"."admin"."</a></li>";
+                    }
+                    echo "<form action=index.php method=POST name=decon ><input type=submit value=deconnexion ></form>";
+                }
+            ?>   
             </div>
         </div>
     </header>
@@ -33,8 +45,6 @@
             <input type="password"  name= "password2" placeholder="verifcation mot de passe">
             <input type="submit" name="inscription" >
         </form>
-        </div>
-        
         <?php
             $bdd=mysqli_connect('localhost','root','','moduleconnexion');
             mysqli_set_charset($bdd,'utf8');
@@ -46,26 +56,25 @@
                 $password2=$_POST['password2'];
                 
                 if (empty($login)) {
-                    echo "remplissez le champ login .";
+                    echo "<p>"."remplissez le champ login". "</p>";
                 }
                 elseif (empty($prenom)) {
-                    echo "remplissez le champ prenom";
+                    echo "<p>"."remplissez le champ prenom". "</p>";
                 }
                 elseif (empty($nom)) {
-                    echo "remplissez le champ nom . ";
+                    echo "<p>"."remplissez le champ nom". "</p>";
                 }
                 elseif (empty($password)) {
-                    echo "remplissez le champ mot de passe .";
-                    
+                    echo "<p>"."remplissez le champ mot de passe ". "</p>";
                 }
                 elseif (!empty($login)) {
                     $veriflogin=mysqli_query($bdd,"SELECT `login` FROM `etudiants` WHERE `login`= '$login'");
-                    var_dump(mysqli_num_rows($veriflogin) );
+                   
                     if(mysqli_num_rows($veriflogin) == 1) {
-                        echo "Le LOGIN existe deja . ";    
+                        echo "<p>"."Le LOGIN existe deja ". "</p>";    
                     }
                 elseif ($password != $password2) {
-                    echo "les mdp ne coresponde pas";
+                    echo "<p>"." les mdp ne correspondent pas  ". "</p>";
                 }
                 else {
                         $cryptage=password_hash($password,PASSWORD_DEFAULT);
@@ -79,7 +88,7 @@
                 
         
         ?>
-            
+        </div>
     </main>
     <footer>
     <ul class="liste">

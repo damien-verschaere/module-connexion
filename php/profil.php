@@ -1,10 +1,13 @@
 <?php
 session_start();
+if (isset($_SESSION['login'])) {
+    $login=$_SESSION['login'];
+}
 $bdd=mysqli_connect('localhost','root','','moduleconnexion');
 mysqli_set_charset($bdd,'utf8');
-$requete=mysqli_query($bdd,"SELECT `id`,`login`,`prenom`,`nom`,`password` FROM `etudiants` WHERE `login`='$_SESSION[login]' ");
+$requete=mysqli_query($bdd,"SELECT `id`,`login`,`prenom`,`nom`,`password` FROM `etudiants` WHERE `login`='$login' ");
 $profil=mysqli_fetch_all($requete,MYSQLI_ASSOC);
-$login=$_SESSION['login'];
+
 ?>
 
 <!DOCTYPE html>
@@ -17,22 +20,25 @@ $login=$_SESSION['login'];
     <title>PROFIL</title>
 </head>
 <body>
-<header>
-    <ul>
-            <div class="drop">
+<header class="head">
+        <div class="drop">
             <!-- menu drop vers les liens des pages  -->
             <button class="dropbutton">MENU</button>
             <div class="container-button">
             <li><a href="../index.php">accueil</a></li>
-            <li><a href="connexion.php">connexion</a></li>
-            <li><a href="inscription.php">inscription</a></li>
-            <li><a href="profil.php">profil</a></li>
             <?php
-            if (isset($login)) {
-                if ($login=="admin") {
-                    echo  "<li><a href=admin.php>admin</a></li>";
-                } 
+            if (empty($login)) {
+           echo "<li><a href=connexion.php>"."connexion"."</a></li>";
+           echo "<li><a href=inscription.php>"."inscription"."</a></li>";
             }
+            elseif(!empty($login)){
+                    echo "<li><a href=profil.php>profil</a></li>";
+                    
+                    if ($login=="admin") {
+                        echo  "<li><a href=admin.php>"."admin"."</a></li>";
+                    }
+                    echo "<form action=index.php method=POST name=decon ><input type=submit value=deconnexion ></form>";
+                }
             ?>   
             </div>
         </div>
