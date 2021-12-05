@@ -60,43 +60,61 @@ $profil=mysqli_fetch_all($requete,MYSQLI_ASSOC);
         <input type="submit" name="modifprofil">
     </form>
     <?php
+    $error="";
     if (isset($_POST['modifprofil'])){
-                $id=$_POST['id'];
-                $login=$_POST['login'];
-                $prenom=$_POST['prenom'];
-                $nom=$_POST['nom'];
-                $password=$_POST['password'];
-                $password2=$_POST['password2'];
-                
-                if ($password != $password2) {
-                    echo "les mdp ne coresponde pas";
-                }
-                elseif ($_SESSION['login'] == $_POST['login']) {
-                    $cryptage=password_hash($_POST['password'],PASSWORD_DEFAULT);
-                    $update=mysqli_query($bdd,"UPDATE `etudiants` SET `prenom`=$prenom,`nom`=$nom, `password`='$cryptage' WHERE `id`='$_POST[id]' ");
-                    $_SESSION=[];
-                    session_destroy();
-                    header('location:' . '../index.php');
-                }
-                elseif (empty($password)) {
-                    $update=mysqli_query($bdd,"UPDATE `etudiants` SET `login`='$login',`prenom`='$prenom',`nom`='$nom' WHERE `id`=$id ");
-                    $_SESSION['login']=$_POST['login'];
-                    header('location:'. '../index.php');
-                    
-                }
-                elseif ($_SESSION['login'] != $_POST['login']) {
-                    $veriflogin=mysqli_query($bdd,"SELECT `login` FROM `etudiants` WHERE `login`= '$_POST[login]'");
-                    if(mysqli_num_rows($veriflogin) == 1) {
-                        echo "<p> Le LOGIN existe deja .</p> ";    
-                    }
-                else{
-                    $cryptage=password_hash($password,PASSWORD_DEFAULT);
-                    $update=mysqli_query($bdd,"UPDATE `etudiants`  SET `login`='$login',`prenom`='$prenom',`nom`='$nom',`password`='$cryptage' WHERE `id`= '$id'");
-                    $_SESSION['login']=$_POST['login'];
-                    header('location:' . '../index.php');
-                }
+        $id=$_POST['id'];
+        if (!empty($_POST['login'] && $_POST['prenom'] && $_POST['nom'])) {
+            $requete_log = mysqli_query($bdd , " SELECT * FROM etudiants WHERE id = '$id'");    
+            $result_log = mysqli_fetch_assoc($requete_log);
+            $requete_log_2 = mysqli_query($bdd, "SELECT COUNT(*) FROM etudiants WHERE login = '$_POST[login]' ");
+            $result_log_2 = mysqli_fetch_array($requete_log_2);
+        }
+        if ( $result_log_2['COUNT(*)'] == 0){
+            if (empty($_POST['password2'])) {
+                $login = htmlspecialchars($_POST['login']);
+                $prenom = htmlspecialchars($_POST['prenom']);
+                $nom = htmlspecialchars($_POST['nom']);
+                $requete = mysqli_query($bdd, "UPDATE etudiants SET login='$login',prenom= '$prenom',nom= '$nom' WHERE login = '$result_log[login]'");
+                $_SESSION['login'] = $login;
+                $_SESSION['prenom'] = $prenom;
+                $_SESSION['nom'] = $nom;
+                header('location: ' . '../index.php');
             }
-    }
+            
+            if ($_POST['password'] == $_POST['password2']){
+               
+                $login = htmlspecialchars($_POST['login']);
+                $prenom = htmlspecialchars($_POST['prenom']);
+                $nom = htmlspecialchars($_POST['nom']);
+                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $requete = mysqli_query($bdd, "UPDATE etudiants SET login='$login',prenom= '$prenom',nom= '$nom',password= '$password' WHERE login = '$result_log[login]'");
+                $_SESSION['login'] = $login;
+                $_SESSION['prenom'] = $prenom;
+                $_SESSION['nom'] = $nom;
+                $_SESSION['password'] = $password;
+                $echo = "vos informations ont été modifier avec succés";
+                header('location: ' . '../index.php');
+            }
+            else {
+                $error = "Veuillez insérer deux password indentiques";
+            }
+        }
+        elseif ($_POST['login']==$_SESSION['login']) {
+            
+            $prenom = htmlspecialchars($_POST['prenom']);
+            $nom = htmlspecialchars($_POST['nom']);
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $updte1=mysqli_query($bdd, "UPDATE etudiants SET prenom= '$prenom',nom= '$nom',password= '$password' WHERE login = '$result_log[login]'");
+            header('location: ' . '../index.php');
+        }
+        else {
+            $error ="Login indisponible";
+        }
+    } 
+    else {
+        $error = "Veuillez renseigner les champs vides";
+    }   
+
     ?>
     </div>
 
